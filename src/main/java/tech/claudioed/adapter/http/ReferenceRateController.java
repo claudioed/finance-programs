@@ -7,24 +7,24 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import tech.claudioed.domain.ReferenceRate;
-import tech.claudioed.domain.aggregates.ReferenceRateAggregate;
+import tech.claudioed.domain.referencerate.ReferenceRate;
+import tech.claudioed.domain.referencerate.services.ReferenceRateService;
 import tech.claudioed.port.inputs.CreateReferenceRate;
 
 @Path("/reference-rates")
 public class ReferenceRateController {
 
-  private final ReferenceRateAggregate referenceRateAggregate;
+  private final ReferenceRateService referenceRateService;
 
-  public ReferenceRateController(ReferenceRateAggregate referenceRateAggregate) {
-    this.referenceRateAggregate = referenceRateAggregate;
+  public ReferenceRateController(ReferenceRateService referenceRateService) {
+    this.referenceRateService = referenceRateService;
   }
 
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public ReferenceRate createReference(@Valid @NotNull CreateReferenceRate request) {
-    return this.referenceRateAggregate.createRate(request);
+    return this.referenceRateService.createRate(request);
   }
 
 

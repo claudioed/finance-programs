@@ -5,42 +5,49 @@ import javax.persistence.Embeddable;
 @Embeddable
 public class Duration {
 
-  private Double min;
+  private Integer min;
 
-  private Double max;
+  private Integer max;
 
-  private String unit;
+  private PeriodUnit unit;
 
   public Duration(){}
 
-  public Duration(Double min, Double max, String unit) {
+  public Duration(Integer min, Integer max, PeriodUnit unit) {
     this.min = min;
     this.max = max;
     this.unit = unit;
   }
 
-  public Double getMin() {
+  public Integer getMin() {
     return min;
   }
 
-  public void setMin(Double min) {
+  public void setMin(Integer min) {
     this.min = min;
   }
 
-  public Double getMax() {
+  public Integer getMax() {
     return max;
   }
 
-  public void setMax(Double max) {
+  public void setMax(Integer max) {
     this.max = max;
   }
 
-  public String getUnit() {
+  public PeriodUnit getUnit() {
     return unit;
   }
 
-  public void setUnit(String unit) {
+  public void setUnit(PeriodUnit unit) {
     this.unit = unit;
+  }
+
+  public boolean withinRange(LoanTime time){
+    var loanMonths = time.getUnit().timeInMonths(time.getTime());
+    var minMonths = unit.timeInMonths(this.min);
+    var maxMonths = unit.timeInMonths(this.max);
+    return min < loanMonths && max > loanMonths;
   }
 
 }

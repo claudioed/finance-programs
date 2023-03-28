@@ -7,24 +7,24 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import tech.claudioed.domain.Flat;
-import tech.claudioed.domain.aggregates.FlatAggregate;
+import tech.claudioed.domain.flat.Flat;
+import tech.claudioed.domain.flat.services.FlatService;
 import tech.claudioed.port.inputs.CreateFlat;
 
 @Path("/flats")
 public class FlatController {
 
-  private final FlatAggregate flatAggregate;
+  private final FlatService flatService;
 
-  public FlatController(FlatAggregate flatAggregate) {
-    this.flatAggregate = flatAggregate;
+  public FlatController(FlatService flatService) {
+    this.flatService = flatService;
   }
 
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public Flat createReference(@Valid @NotNull CreateFlat request) {
-    return this.flatAggregate.createFlat(request);
+  public Flat createFlat(@Valid @NotNull CreateFlat request) {
+    return this.flatService.createFlat(request);
   }
 
 

@@ -7,25 +7,25 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import tech.claudioed.domain.FinanceProgramSimulation;
-import tech.claudioed.domain.aggregates.FinanceProgramSimulationAggregate;
+import tech.claudioed.domain.simulation.FinanceProgramSimulation;
+import tech.claudioed.domain.simulation.services.FinanceProgramSimulationService;
 import tech.claudioed.port.inputs.FinanceProgramRequest;
 
 @Path("/finance-program-simulation")
 public class FinanceProgramSimulationController {
 
-  private final FinanceProgramSimulationAggregate financeProgramSimulationAggregate;
+  private final FinanceProgramSimulationService financeProgramSimulationService;
 
   public FinanceProgramSimulationController(
-      FinanceProgramSimulationAggregate financeProgramSimulationAggregate) {
-    this.financeProgramSimulationAggregate = financeProgramSimulationAggregate;
+      FinanceProgramSimulationService financeProgramSimulationService) {
+    this.financeProgramSimulationService = financeProgramSimulationService;
   }
 
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
   public FinanceProgramSimulation createReference(@Valid @NotNull FinanceProgramRequest request) {
-    return this.financeProgramSimulationAggregate.financeProgram(request);
+    return this.financeProgramSimulationService.financeProgram(request);
   }
 
 }
