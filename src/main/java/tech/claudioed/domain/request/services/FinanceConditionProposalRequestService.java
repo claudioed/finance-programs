@@ -8,6 +8,7 @@ import tech.claudioed.domain.request.FinanceConditionProposal;
 import tech.claudioed.domain.request.events.ApprovalRequest;
 import tech.claudioed.domain.request.repositories.ApprovalUserRepository;
 import tech.claudioed.domain.request.repositories.FinanceConditionProposalRepository;
+import tech.claudioed.port.inputs.request.FinanceConditionApprovalComment;
 import tech.claudioed.port.inputs.request.FinanceConditionRequest;
 
 @ApplicationScoped
@@ -35,6 +36,10 @@ public class FinanceConditionProposalRequestService {
     this.financeConditionProposalRepository.persist(proposal);
     approvers.stream().map(ap -> new ApprovalRequest(ap,proposal)).forEach(this.approvals::fire);
     return proposal;
+  }
+
+  public void approve(String id , FinanceConditionApprovalComment comment){
+
   }
 
 }

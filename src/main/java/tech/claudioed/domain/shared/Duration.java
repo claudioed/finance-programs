@@ -47,7 +47,7 @@ public class Duration {
     var loanMonths = time.getUnit().timeInMonths(time.getTime());
     var minMonths = unit.timeInMonths(this.min);
     var maxMonths = unit.timeInMonths(this.max);
-    return min < loanMonths && max > loanMonths;
+    return minMonths < loanMonths && maxMonths > loanMonths;
   }
 
 }

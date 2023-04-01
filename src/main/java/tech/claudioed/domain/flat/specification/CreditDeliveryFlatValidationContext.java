@@ -1,15 +1,17 @@
 package tech.claudioed.domain.flat.specification;
 
+import java.util.Objects;
 import tech.claudioed.domain.flat.Flat;
-import tech.claudioed.port.inputs.FinanceProgramRequest;
+import tech.claudioed.domain.shared.nullable.NullableLoanTime;
+import tech.claudioed.port.inputs.FinanceProgramQuery;
 import tech.claudioed.port.inputs.finance.CustomerId;
 import tech.claudioed.port.inputs.finance.DealerId;
 import tech.claudioed.port.inputs.finance.ProductFamilyId;
 import tech.claudioed.port.inputs.finance.ProductId;
 
-public class FlatValidationContext {
+public class CreditDeliveryFlatValidationContext {
 
-  private final FinanceProgramRequest request;
+  private final FinanceProgramQuery request;
 
   private final Flat flat;
 
@@ -23,11 +25,11 @@ public class FlatValidationContext {
 
   private final ProductFamilyAllowedToUseFlat productFamilyAllowed;
 
-  public FlatValidationContext(FinanceProgramRequest request, Flat flat) {
+  public CreditDeliveryFlatValidationContext(FinanceProgramQuery request, Flat flat) {
     this.request = request;
     this.flat = flat;
     this.dealerAllowed = new DealerAllowedToUseFlat(new DealerId(this.request.getDealer()));
-    this.loanAllowed = new LoanAllowedToUseFlat(this.request.getLoanTime());
+    this.loanAllowed = new LoanAllowedToUseFlat(Objects.isNull(request.getLoanTime()) ? new NullableLoanTime() : this.request.getLoanTime());
     this.customerAllowed = new CustomerAllowedToUseFlat(new CustomerId(this.request.getCustomer()));
     this.productAllowed = new ProductAllowedToUseFlat(new ProductId(this.request.getProduct()));
     this.productFamilyAllowed = new ProductFamilyAllowedToUseFlat(new ProductFamilyId(this.request.getProductFamily()));

@@ -4,20 +4,18 @@ import java.time.LocalDate;
 import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import javax.money.Monetary;
-import javax.money.MonetaryAmount;
 import javax.transaction.Transactional;
 import tech.claudioed.domain.financecondition.FinanceCondition;
 import tech.claudioed.domain.financecondition.repositories.FinanceConditionRepository;
 import tech.claudioed.domain.financecondition.specification.FinanceConditionValidationContext;
-import tech.claudioed.domain.financecondition.specification.MeetDownPaymentRequirements;
 import tech.claudioed.domain.flat.Flat;
 import tech.claudioed.domain.flat.repositories.FlatRepository;
-import tech.claudioed.domain.flat.specification.FlatValidationContext;
+import tech.claudioed.domain.flat.specification.CreditDeliveryFlatValidationContext;
 import tech.claudioed.domain.subsidy.Subsidy;
 import tech.claudioed.domain.subsidy.SubsidyType;
 import tech.claudioed.domain.subsidy.repositories.SubsidyRepository;
-import tech.claudioed.domain.subsidy.specification.SubsidyValidationContext;
-import tech.claudioed.port.inputs.FinanceProgramRequest;
+import tech.claudioed.domain.subsidy.specification.CreditDeliverySubsidyValidationContext;
+import tech.claudioed.port.inputs.FinanceProgramQuery;
 import tech.claudioed.port.inputs.financecondition.NewFinanceCondition;
 
 @ApplicationScoped
@@ -64,12 +62,16 @@ public class FinanceConditionService {
     return financeCondition;
   }
 
-  public List<FinanceCondition> find(FinanceProgramRequest arguments){
+  public List<FinanceCondition> find(FinanceProgramQuery arguments){
     var conditions = this.financeConditionRepository.currents(LocalDate.now());
     return conditions.stream()
         .filter(cnd -> new FinanceConditionValidationContext(arguments,cnd).isSatisfied())
-        .filter(cnd -> new SubsidyValidationContext(arguments,cnd.getFactorySubsidy()).isSatisfied())
-        .filter(cnd -> new FlatValidationContext(arguments,cnd.getFlat()).isSatisfied()).toList();
+        .filter(cnd -> new CreditDeliverySubsidyValidationContext(arguments,cnd.getFactorySubsidy()).isSatisfied())
+        .filter(cnd -> new CreditDeliveryFlatValidationContext(arguments,cnd.getFlat()).isSatisfied()).toList();
+  }
+
+  public List<FinanceCondition> findDealersConditions(FinanceProgramQuery arguments){
+    return List.of();
   }
 
 }

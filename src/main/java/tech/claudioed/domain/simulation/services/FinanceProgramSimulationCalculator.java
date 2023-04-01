@@ -6,7 +6,7 @@ import tech.claudioed.domain.Rate;
 import tech.claudioed.domain.referencerate.ReferenceRate;
 import tech.claudioed.domain.SubsidiesRequired;
 import tech.claudioed.domain.subsidy.Subsidy;
-import tech.claudioed.port.inputs.FinanceProgramRequest;
+import tech.claudioed.port.inputs.FinanceProgramQuery;
 
 public class FinanceProgramSimulationCalculator {
 
@@ -16,10 +16,10 @@ public class FinanceProgramSimulationCalculator {
 
   private final ReferenceRate referenceRate;
 
-  private final FinanceProgramRequest request;
+  private final FinanceProgramQuery request;
 
   public FinanceProgramSimulationCalculator(Subsidy subsidy, Flat flat, ReferenceRate referenceRate,
-      FinanceProgramRequest request) {
+      FinanceProgramQuery request) {
     this.subsidy = subsidy;
     this.flat = flat;
     this.referenceRate = referenceRate;

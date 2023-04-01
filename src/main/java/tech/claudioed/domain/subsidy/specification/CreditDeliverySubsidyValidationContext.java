@@ -1,15 +1,18 @@
 package tech.claudioed.domain.subsidy.specification;
 
+import tech.claudioed.domain.shared.nullable.NullableLoanTime;
 import tech.claudioed.domain.subsidy.Subsidy;
-import tech.claudioed.port.inputs.FinanceProgramRequest;
+import tech.claudioed.port.inputs.FinanceProgramQuery;
 import tech.claudioed.port.inputs.finance.CustomerId;
 import tech.claudioed.port.inputs.finance.DealerId;
 import tech.claudioed.port.inputs.finance.ProductFamilyId;
 import tech.claudioed.port.inputs.finance.ProductId;
 
-public class SubsidyValidationContext {
+import java.util.Objects;
 
-  private final FinanceProgramRequest request;
+public class CreditDeliverySubsidyValidationContext {
+
+  private final FinanceProgramQuery request;
 
   private final Subsidy subsidy;
 
@@ -24,11 +27,11 @@ public class SubsidyValidationContext {
   private final ProductFamilyAllowedToUseSubsidy productFamilyAllowedToUseSubsidy;
 
 
-  public SubsidyValidationContext(FinanceProgramRequest request, Subsidy subsidy) {
+  public CreditDeliverySubsidyValidationContext(FinanceProgramQuery request, Subsidy subsidy) {
     this.request = request;
     this.subsidy = subsidy;
     this.dealerAllowedToUseSubsidy = new DealerAllowedToUseSubsidy(new DealerId(this.request.getDealer()));
-    this.loanAllowedToUseSubsidy = new LoanAllowedToUseSubsidy(this.request.getLoanTime());
+    this.loanAllowedToUseSubsidy = new LoanAllowedToUseSubsidy(Objects.isNull(request.getLoanTime()) ? new NullableLoanTime() : this.request.getLoanTime());
     this.customerAllowedToUseSubsidy = new CustomerAllowedToUseSubsidy(new CustomerId(this.request.getCustomer()));
     this.productAllowedToUseSubsidy = new ProductAllowedToUseSubsidy(new ProductId(this.request.getProduct()));
     this.productFamilyAllowedToUseSubsidy = new ProductFamilyAllowedToUseSubsidy(new ProductFamilyId(this.request.getProductFamily()));
@@ -53,5 +56,5 @@ public class SubsidyValidationContext {
   public Subsidy getSubsidy() {
     return subsidy;
   }
-  
+
 }

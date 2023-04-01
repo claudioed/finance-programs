@@ -3,12 +3,14 @@ package tech.claudioed.port.inputs;
 import java.math.BigDecimal;
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
+import javax.validation.constraints.NotEmpty;
+
 import tech.claudioed.domain.shared.Amount;
-import tech.claudioed.domain.shared.Duration;
 import tech.claudioed.domain.shared.LoanTime;
 
-public class FinanceProgramRequest {
+public class FinanceProgramQuery {
 
+  @NotEmpty
   private String dealer;
 
   private String productFamily;
@@ -17,8 +19,10 @@ public class FinanceProgramRequest {
 
   private LoanTime loanTime;
 
+  @NotEmpty
   private BigDecimal targetRate;
 
+  @NotEmpty
   private String customer;
 
   private DownPayment downPayment;
@@ -55,6 +59,38 @@ public class FinanceProgramRequest {
 
   public Amount getLoanAmount() {
     return loanAmount;
+  }
+
+  public void setDealer(String dealer) {
+    this.dealer = dealer;
+  }
+
+  public void setProductFamily(String productFamily) {
+    this.productFamily = productFamily;
+  }
+
+  public void setProduct(String product) {
+    this.product = product;
+  }
+
+  public void setLoanTime(LoanTime loanTime) {
+    this.loanTime = loanTime;
+  }
+
+  public void setTargetRate(BigDecimal targetRate) {
+    this.targetRate = targetRate;
+  }
+
+  public void setCustomer(String customer) {
+    this.customer = customer;
+  }
+
+  public void setDownPayment(DownPayment downPayment) {
+    this.downPayment = downPayment;
+  }
+
+  public void setLoanAmount(Amount loanAmount) {
+    this.loanAmount = loanAmount;
   }
 
   public MonetaryAmount amount(){

@@ -9,9 +9,9 @@ import tech.claudioed.domain.subsidy.picker.SubsidyPicker;
 import tech.claudioed.domain.flat.repositories.FlatRepository;
 import tech.claudioed.domain.referencerate.repositories.ReferenceRateRepository;
 import tech.claudioed.domain.subsidy.repositories.SubsidyRepository;
-import tech.claudioed.domain.flat.specification.FlatValidationContext;
-import tech.claudioed.domain.subsidy.specification.SubsidyValidationContext;
-import tech.claudioed.port.inputs.FinanceProgramRequest;
+import tech.claudioed.domain.flat.specification.CreditDeliveryFlatValidationContext;
+import tech.claudioed.domain.subsidy.specification.CreditDeliverySubsidyValidationContext;
+import tech.claudioed.port.inputs.FinanceProgramQuery;
 
 @ApplicationScoped
 public class FinanceProgramSimulationService {
@@ -29,12 +29,12 @@ public class FinanceProgramSimulationService {
     this.referenceRateRepository = referenceRateRepository;
   }
 
-  public FinanceProgramSimulation financeProgram(FinanceProgramRequest request){
-    var flats = this.flatRepository.currentFlats(LocalDate.now()).stream().map(flat -> new FlatValidationContext(request,
-        flat)).filter(FlatValidationContext::isSatisfied).toList();
-    var subsidies = this.subsidyRepository.currentSubsidies(LocalDate.now()).stream().map( su -> new SubsidyValidationContext(request,
+  public FinanceProgramSimulation financeProgram(FinanceProgramQuery request){
+    var flats = this.flatRepository.currentFlats(LocalDate.now()).stream().map(flat -> new CreditDeliveryFlatValidationContext(request,
+        flat)).filter(CreditDeliveryFlatValidationContext::isSatisfied).toList();
+    var subsidies = this.subsidyRepository.currentSubsidies(LocalDate.now()).stream().map( su -> new CreditDeliverySubsidyValidationContext(request,
             su))
-        .filter(SubsidyValidationContext::isSatisfied).toList();
+        .filter(CreditDeliverySubsidyValidationContext::isSatisfied).toList();
     var referenceRate = this.referenceRateRepository.currentReferenceRate(LocalDateTime.now());
     var flat = new FlatPicker(flats).pick();
     var subsidy = new SubsidyPicker(subsidies).pick();

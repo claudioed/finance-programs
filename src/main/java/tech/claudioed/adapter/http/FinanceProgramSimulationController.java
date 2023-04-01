@@ -9,7 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import tech.claudioed.domain.simulation.FinanceProgramSimulation;
 import tech.claudioed.domain.simulation.services.FinanceProgramSimulationService;
-import tech.claudioed.port.inputs.FinanceProgramRequest;
+import tech.claudioed.port.inputs.FinanceProgramQuery;
 
 @Path("/finance-program-simulation")
 public class FinanceProgramSimulationController {
@@ -24,7 +24,7 @@ public class FinanceProgramSimulationController {
   @POST
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public FinanceProgramSimulation createReference(@Valid @NotNull FinanceProgramRequest request) {
+  public FinanceProgramSimulation createReference(@Valid @NotNull FinanceProgramQuery request) {
     return this.financeProgramSimulationService.financeProgram(request);
   }
 

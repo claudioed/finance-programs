@@ -1,11 +1,11 @@
 package tech.claudioed.domain.financecondition.specification;
 
 import tech.claudioed.domain.financecondition.FinanceCondition;
-import tech.claudioed.port.inputs.FinanceProgramRequest;
+import tech.claudioed.port.inputs.FinanceProgramQuery;
 
 public class FinanceConditionValidationContext {
 
-  private final FinanceProgramRequest request;
+  private final FinanceProgramQuery request;
 
   private final FinanceCondition condition;
 
@@ -13,7 +13,7 @@ public class FinanceConditionValidationContext {
 
   private final AmountAllowed amountAllowed;
 
-  public FinanceConditionValidationContext(FinanceProgramRequest request, FinanceCondition financeCondition) {
+  public FinanceConditionValidationContext(FinanceProgramQuery request, FinanceCondition financeCondition) {
     this.request = request;
     this.condition = financeCondition;
     this.downPaymentRequirements = new MeetDownPaymentRequirements(request.getDownPayment().getPercent(),request.getDownPayment().getFirstInstallment());

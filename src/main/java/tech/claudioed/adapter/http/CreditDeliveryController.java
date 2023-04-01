@@ -11,24 +11,15 @@ import javax.ws.rs.core.MediaType;
 import tech.claudioed.adapter.http.utils.FormatFinanceCondition;
 import tech.claudioed.domain.financecondition.services.FinanceConditionService;
 import tech.claudioed.port.inputs.FinanceProgramQuery;
-import tech.claudioed.port.inputs.financecondition.NewFinanceCondition;
 import tech.claudioed.port.outputs.financecondition.FinanceConditionData;
 
-@Path("/finance-conditions")
-public class FinanceConditionController {
+@Path("/credit-delivery-finance-conditions")
+public class CreditDeliveryController {
 
   private final FinanceConditionService financeConditionService;
 
-  public FinanceConditionController(FinanceConditionService financeConditionService) {
+  public CreditDeliveryController(FinanceConditionService financeConditionService) {
     this.financeConditionService = financeConditionService;
-  }
-
-  @POST
-  @Produces(MediaType.APPLICATION_JSON)
-  @Consumes(MediaType.APPLICATION_JSON)
-  public FinanceConditionData createFinanceCondition(@Valid @NotNull NewFinanceCondition request) {
-    var fc = this.financeConditionService.newFinanceCondition(request);
-    return FormatFinanceCondition.from(fc);
   }
 
   @POST

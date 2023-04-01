@@ -1,7 +1,7 @@
 package tech.claudioed.domain.simulation;
 
 import tech.claudioed.domain.Rate;
-import tech.claudioed.port.inputs.FinanceProgramRequest;
+import tech.claudioed.port.inputs.FinanceProgramQuery;
 
 public class FinanceProgramSimulation {
 
@@ -11,12 +11,12 @@ public class FinanceProgramSimulation {
 
   private Rate required;
 
-  private FinanceProgramRequest request;
+  private FinanceProgramQuery request;
 
   public FinanceProgramSimulation(){}
 
   public FinanceProgramSimulation(Rate subsidy, Rate flat, Rate required,
-      FinanceProgramRequest request) {
+      FinanceProgramQuery request) {
     this.subsidy = subsidy;
     this.flat = flat;
     this.required = required;
@@ -47,11 +47,11 @@ public class FinanceProgramSimulation {
     this.required = required;
   }
 
-  public FinanceProgramRequest getRequest() {
+  public FinanceProgramQuery getRequest() {
     return request;
   }
 
-  public void setRequest(FinanceProgramRequest request) {
+  public void setRequest(FinanceProgramQuery request) {
     this.request = request;
   }
 }

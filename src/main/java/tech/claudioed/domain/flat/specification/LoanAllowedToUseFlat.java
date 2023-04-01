@@ -3,6 +3,7 @@ package tech.claudioed.domain.flat.specification;
 import tech.claudioed.domain.flat.Flat;
 import tech.claudioed.domain.shared.Duration;
 import tech.claudioed.domain.shared.LoanTime;
+import tech.claudioed.domain.shared.nullable.NullableLoanTime;
 import tech.claudioed.domain.shared.specification.AbstractSpecification;
 
 public class LoanAllowedToUseFlat extends AbstractSpecification<Flat> {
