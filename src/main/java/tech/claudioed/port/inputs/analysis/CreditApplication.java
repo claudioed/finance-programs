@@ -2,7 +2,6 @@ package tech.claudioed.port.inputs.analysis;
 
 import javax.money.Monetary;
 import javax.money.MonetaryAmount;
-import tech.claudioed.domain.shared.Amount;
 import tech.claudioed.domain.shared.LoanTime;
 import tech.claudioed.port.inputs.DownPayment;
 
