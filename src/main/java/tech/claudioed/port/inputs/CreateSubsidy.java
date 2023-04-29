@@ -3,6 +3,7 @@ package tech.claudioed.port.inputs;
 import java.math.BigDecimal;
 import tech.claudioed.domain.shared.Duration;
 import tech.claudioed.domain.shared.Interval;
+import tech.claudioed.domain.shared.MarketSegment;
 import tech.claudioed.domain.shared.Targets;
 
 public class CreateSubsidy {
@@ -12,6 +13,8 @@ public class CreateSubsidy {
   private BigDecimal rate;
   private Targets targets;
   private Duration maxTimeLoan;
+
+  private MarketSegment segment;
 
   public Interval getPeriod() {
     return period;
@@ -53,4 +56,11 @@ public class CreateSubsidy {
     this.maxTimeLoan = maxTimeLoan;
   }
 
+  public MarketSegment getSegment() {
+    return segment;
+  }
+
+  public void setSegment(MarketSegment segment) {
+    this.segment = segment;
+  }
 }

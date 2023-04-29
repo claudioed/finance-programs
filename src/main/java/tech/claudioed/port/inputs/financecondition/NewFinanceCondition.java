@@ -4,7 +4,10 @@ import java.math.BigDecimal;
 import tech.claudioed.domain.financecondition.DownPaymentRequirements;
 import tech.claudioed.domain.shared.Amount;
 import tech.claudioed.domain.shared.Duration;
+import tech.claudioed.domain.shared.FinancingLine;
+import tech.claudioed.domain.shared.FinancingLineId;
 import tech.claudioed.domain.shared.Interval;
+import tech.claudioed.domain.shared.MarketSegment;
 import tech.claudioed.domain.shared.Targets;
 
 public class NewFinanceCondition {
@@ -29,7 +32,15 @@ public class NewFinanceCondition {
 
   private Amount maxAmount;
 
+  private boolean campaign;
+
   private DownPaymentRequirements downPaymentRequirements;
+
+  private MarketSegment segment;
+
+  private FinancingLineId financingLine;
+
+  private Interval contractingLimit;
 
   public String getName() {
     return name;
@@ -81,6 +92,22 @@ public class NewFinanceCondition {
 
   public Amount getMaxAmount() {
     return maxAmount;
+  }
+
+  public MarketSegment getSegment() {
+    return segment;
+  }
+
+  public FinancingLineId getFinancingLine() {
+    return financingLine;
+  }
+
+  public boolean isCampaign() {
+    return campaign;
+  }
+
+  public Interval getContractingLimit() {
+    return contractingLimit;
   }
 
 }

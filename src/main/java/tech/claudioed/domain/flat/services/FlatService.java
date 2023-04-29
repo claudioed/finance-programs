@@ -17,7 +17,7 @@ public class FlatService {
 
   @Transactional
   public Flat createFlat(CreateFlat request){
-    var flat = new Flat(request.getName(),request.getTargets(),request.getRate(),request.getPeriod());
+    var flat = new Flat(request.getName(),request.getTargets(),request.getRate(),request.getPeriod(),request.getSegment());
     this.flatRepository.persist(flat);
     return flat;
   }

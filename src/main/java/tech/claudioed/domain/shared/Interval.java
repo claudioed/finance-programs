@@ -20,6 +20,10 @@ public class Interval {
     return !this.end.isBefore(t2.start) && !this.start.isAfter(t2.end);
   }
 
+  public boolean isBetween(LocalDate date){
+    return this.start.isAfter(date) && this.end.isBefore(date);
+  }
+
   public LocalDate getStart() {
     return start;
   }

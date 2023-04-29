@@ -1,21 +1,20 @@
 package tech.claudioed.domain.financecondition.services;
 
-import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import javax.enterprise.context.ApplicationScoped;
 import javax.money.Monetary;
 import javax.transaction.Transactional;
+import tech.claudioed.domain.financecondition.CreditDeliveryQuery;
+import tech.claudioed.domain.financecondition.DealerQuery;
 import tech.claudioed.domain.financecondition.FinanceCondition;
+import tech.claudioed.domain.financecondition.FinanceConditionBuilder;
 import tech.claudioed.domain.financecondition.repositories.FinanceConditionRepository;
-import tech.claudioed.domain.financecondition.specification.FinanceConditionValidationContext;
 import tech.claudioed.domain.flat.Flat;
 import tech.claudioed.domain.flat.repositories.FlatRepository;
-import tech.claudioed.domain.flat.specification.CreditDeliveryFlatValidationContext;
 import tech.claudioed.domain.subsidy.Subsidy;
 import tech.claudioed.domain.subsidy.SubsidyType;
 import tech.claudioed.domain.subsidy.repositories.SubsidyRepository;
-import tech.claudioed.domain.subsidy.specification.CreditDeliverySubsidyValidationContext;
-import tech.claudioed.port.inputs.FinanceProgramQuery;
 import tech.claudioed.port.inputs.financecondition.NewFinanceCondition;
 
 @ApplicationScoped
@@ -39,10 +38,17 @@ public class FinanceConditionService {
     var maxAmount = Monetary.getDefaultAmountFactory()
         .setCurrency(Monetary.getCurrency(request.getMaxAmount().getCurrency()))
         .setNumber(request.getMaxAmount().getAmount()).create();
-    var financeCondition = new FinanceCondition(request.getName(),request.getMaxTimeLoan(),request.getPeriod(),request.isOneTimeUsage(),
-        request.getTargets(),request.getInterestRate(),request.getDownPaymentRequirements(),maxAmount);
+    var builder = new FinanceConditionBuilder().name(request.getName()).maxTimeLoan(request.getMaxTimeLoan()).interval(request.getPeriod())
+        .oneTimeUsage(request.isOneTimeUsage()).targets(request.getTargets()).interestRate(request.getInterestRate())
+        .downPaymentRequirements(request.getDownPaymentRequirements()).monetaryAmount(maxAmount).contractingLimit(request.getContractingLimit())
+        .segment(request.getSegment()).financingLineId(request.getFinancingLine());
+    if (request.isCampaign()){
+      builder.utm(UUID.randomUUID().toString());
+    }
+    var financeCondition = builder.newFinanceCondition();
+
     if (!request.preRegisteredFlat()){
-      var flat = new Flat(request.getFlat().getName(),request.getTargets(),request.getFlat().getRate(),request.getPeriod());
+      var flat = new Flat(request.getFlat().getName(),request.getTargets(),request.getFlat().getRate(),request.getPeriod(),request.getSegment());
       financeCondition.configFlat(flat);
     }else {
       var flat = this.flatRepository.get(request.getFlat().getFlatId());
@@ -50,28 +56,24 @@ public class FinanceConditionService {
     }
 
     if (!request.preRegisteredFactorySubsidy()){
-      var subsidy = new Subsidy(request.getPeriod(),request.getFactorySubsidy().getRate(),request.getTargets(),request.getMaxTimeLoan(),request.getFactorySubsidy().getName(), SubsidyType.FACTORY);
+      var subsidy = new Subsidy(request.getPeriod(),request.getFactorySubsidy().getRate(),request.getTargets(),request.getMaxTimeLoan(),request.getFactorySubsidy().getName(), SubsidyType.FACTORY,request.getSegment());
       financeCondition.configFactorySubsidy(subsidy);
     }else {
       var subsidy = this.subsidyRepository.get(request.getFactorySubsidy().getId());
       financeCondition.configFactorySubsidy(subsidy.get());
     }
-    var dealerSubsidy = new Subsidy(request.getPeriod(),request.getDealerSubsidy().getRate(),request.getTargets(),request.getMaxTimeLoan(),request.getDealerSubsidy().getName(), SubsidyType.DEALER);
+    var dealerSubsidy = new Subsidy(request.getPeriod(),request.getDealerSubsidy().getRate(),request.getTargets(),request.getMaxTimeLoan(),request.getDealerSubsidy().getName(), SubsidyType.DEALER,request.getSegment());
     financeCondition.configDealerSubsidy(dealerSubsidy);
     this.financeConditionRepository.persist(financeCondition);
     return financeCondition;
   }
 
-  public List<FinanceCondition> find(FinanceProgramQuery arguments){
-    var conditions = this.financeConditionRepository.currents(LocalDate.now());
-    return conditions.stream()
-        .filter(cnd -> new FinanceConditionValidationContext(arguments,cnd).isSatisfied())
-        .filter(cnd -> new CreditDeliverySubsidyValidationContext(arguments,cnd.getFactorySubsidy()).isSatisfied())
-        .filter(cnd -> new CreditDeliveryFlatValidationContext(arguments,cnd.getFlat()).isSatisfied()).toList();
+  public List<FinanceCondition> dealersQuery(DealerQuery dealerQuery){
+    return this.financeConditionRepository.forDealers(dealerQuery);
   }
 
-  public List<FinanceCondition> findDealersConditions(FinanceProgramQuery arguments){
-    return List.of();
+  public List<FinanceCondition> creditDeliveryQuery(CreditDeliveryQuery query){
+    return this.financeConditionRepository.forCreditDelivery(query);
   }
 
 }

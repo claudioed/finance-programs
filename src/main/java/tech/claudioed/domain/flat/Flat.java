@@ -14,6 +14,7 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import tech.claudioed.domain.shared.Interval;
+import tech.claudioed.domain.shared.MarketSegment;
 import tech.claudioed.domain.shared.Targets;
 
 @Entity
@@ -30,6 +31,8 @@ public class Flat {
   private Targets targets;
   private BigDecimal rate;
 
+  private MarketSegment segment;
+
   @Embedded
   @AttributeOverrides({
       @AttributeOverride(name="start",column=@Column(name="start_date")),
@@ -39,11 +42,12 @@ public class Flat {
 
   public Flat(){}
 
-  public Flat(String name, Targets targets, BigDecimal rate,Interval period) {
+  public Flat(String name, Targets targets, BigDecimal rate,Interval period,MarketSegment segment) {
     this.name = name;
     this.targets = targets;
     this.rate = rate;
     this.period = period;
+    this.segment = segment;
   }
   public Targets getTargets() {
     return targets;
@@ -62,6 +66,10 @@ public class Flat {
 
   public Interval getPeriod() {
     return period;
+  }
+
+  public MarketSegment getSegment() {
+    return segment;
   }
 
 }

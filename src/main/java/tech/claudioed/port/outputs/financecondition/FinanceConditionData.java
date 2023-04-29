@@ -21,10 +21,12 @@ public class FinanceConditionData {
 
   private FlatData flat;
 
+  private String utm;
+
   public FinanceConditionData(){}
 
   public FinanceConditionData(String id,String name, BigDecimal interestRate, Amount maxAmount,
-      SubsidyData factorySubsidy, SubsidyData dealerSubsidy, FlatData flat) {
+      SubsidyData factorySubsidy, SubsidyData dealerSubsidy, FlatData flat,String utm) {
     this.id = id;
     this.interestRate = interestRate;
     this.maxAmount = maxAmount;
@@ -32,6 +34,7 @@ public class FinanceConditionData {
     this.dealerSubsidy = dealerSubsidy;
     this.flat = flat;
     this.name = name;
+    this.utm = utm;
   }
 
   public String getId() {
@@ -61,4 +64,9 @@ public class FinanceConditionData {
   public String getName() {
     return name;
   }
+
+  public String getUtm() {
+    return utm;
+  }
+
 }

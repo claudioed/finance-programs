@@ -3,7 +3,6 @@ package tech.claudioed.domain.shared;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
-import javax.persistence.Embeddable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -31,6 +30,9 @@ public class Targets {
   @ElementCollection
   private Set<String> customers;
 
+  @ElementCollection
+  private Set<String> cultures;
+
   public Set<String> getDealers() {
     return dealers;
   }
@@ -50,4 +52,9 @@ public class Targets {
   public String getId() {
     return id;
   }
+
+  public Set<String> getCultures() {
+    return cultures;
+  }
+
 }

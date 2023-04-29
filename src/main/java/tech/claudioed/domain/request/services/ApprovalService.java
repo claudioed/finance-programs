@@ -2,7 +2,7 @@ package tech.claudioed.domain.request.services;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Observes;
-import tech.claudioed.domain.request.events.ApprovalRequest;
+import tech.claudioed.domain.request.events.ApprovalRequested;
 
 @ApplicationScoped
 public class ApprovalService {
@@ -13,7 +13,7 @@ public class ApprovalService {
     this.notificationService = notificationService;
   }
 
-  void triggerApproval(@Observes ApprovalRequest task) {
+  void triggerApproval(@Observes ApprovalRequested task) {
     this.notificationService.triggerApproval(task);
   }
 

@@ -5,6 +5,7 @@ import java.util.List;
 import javax.enterprise.context.ApplicationScoped;
 import tech.claudioed.domain.dealer.specification.DealerFlatValidationContext;
 import tech.claudioed.domain.dealer.specification.DealerSubsidyValidationContext;
+import tech.claudioed.domain.financecondition.DealerQuery;
 import tech.claudioed.domain.financecondition.FinanceCondition;
 import tech.claudioed.domain.financecondition.repositories.FinanceConditionRepository;
 import tech.claudioed.port.inputs.dealer.DealerFinanceConditionQuery;
@@ -22,15 +23,11 @@ public class DealerFinanceConditionService {
     this.financeConditionRepository = financeConditionRepository;
   }
 
-  public List<FinanceCondition> find(DealerFinanceConditionQuery request){
-    List<FinanceCondition> conditions = this.financeConditionRepository.currents(LocalDate.now());
-    var productId = new ProductId(request.productId());
-    var productFamilyId = new ProductFamilyId(request.productLineId());
-    var customerId = new CustomerId(request.customerId());
-    var dealerId = new DealerId(request.dealerId());
+  public List<FinanceCondition> find(DealerQuery query){
+    List<FinanceCondition> conditions = this.financeConditionRepository.forDealers(query);
     return conditions.stream()
-        .filter(cnd -> new DealerFlatValidationContext(dealerId,customerId,productId,productFamilyId).isSatisfiedBy(cnd.getFlat()))
-        .filter(cnd -> new DealerSubsidyValidationContext(dealerId,customerId,productId,productFamilyId).isSatisfiedBy(cnd.getFactorySubsidy())).toList();
+        .filter(cnd -> new DealerFlatValidationContext(query.dealerId(),query.customerId(),query.productId(),query.productFamilyId()).isSatisfiedBy(cnd.getFlat()))
+        .filter(cnd -> new DealerSubsidyValidationContext(query.dealerId(),query.customerId(),query.productId(),query.productFamilyId()).isSatisfiedBy(cnd.getFactorySubsidy())).toList();
   }
 
 }

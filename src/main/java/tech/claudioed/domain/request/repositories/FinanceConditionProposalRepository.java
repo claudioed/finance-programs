@@ -5,4 +5,10 @@ import javax.enterprise.context.ApplicationScoped;
 import tech.claudioed.domain.request.FinanceConditionProposal;
 
 @ApplicationScoped
-public class FinanceConditionProposalRepository implements PanacheRepository<FinanceConditionProposal> {}
+public class FinanceConditionProposalRepository implements PanacheRepository<FinanceConditionProposal> {
+
+  public FinanceConditionProposal get(String id){
+    return null;
+  }
+
+}

@@ -3,7 +3,7 @@ package tech.claudioed.domain.flat.picker;
 import java.util.Comparator;
 import java.util.List;
 import tech.claudioed.domain.flat.Flat;
-import tech.claudioed.domain.flat.specification.CreditDeliveryFlatValidationContext;
+import tech.claudioed.domain.flat.specification.validation.CreditDeliveryFlatValidationContext;
 
 public class FlatPicker {
 

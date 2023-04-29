@@ -15,6 +15,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.GenericGenerator;
 import tech.claudioed.domain.shared.Duration;
 import tech.claudioed.domain.shared.Interval;
+import tech.claudioed.domain.shared.MarketSegment;
 import tech.claudioed.domain.shared.Targets;
 
 @Entity
@@ -46,14 +47,17 @@ public class Subsidy {
 
   private SubsidyType type;
 
+  private MarketSegment segment;
+
   public Subsidy(){}
-  public Subsidy(Interval validPeriod, BigDecimal rate, Targets target, Duration maxTimeLoan,String name,SubsidyType type) {
+  public Subsidy(Interval validPeriod, BigDecimal rate, Targets target, Duration maxTimeLoan,String name,SubsidyType type,MarketSegment segment) {
     this.validPeriod = validPeriod;
     this.rate = rate;
     this.target = target;
     this.maxTimeLoan = maxTimeLoan;
     this.name =  name;
     this.type = type;
+    this.segment = segment;
   }
 
   public Targets getTarget() {
@@ -82,6 +86,10 @@ public class Subsidy {
 
   public SubsidyType getType() {
     return type;
+  }
+
+  public MarketSegment getSegment() {
+    return segment;
   }
 
 }

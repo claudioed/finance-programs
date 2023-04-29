@@ -21,7 +21,9 @@ import org.hibernate.annotations.TypeDef;
 import tech.claudioed.domain.flat.Flat;
 import tech.claudioed.domain.shared.Amount;
 import tech.claudioed.domain.shared.Duration;
+import tech.claudioed.domain.shared.FinancingLineId;
 import tech.claudioed.domain.shared.Interval;
+import tech.claudioed.domain.shared.MarketSegment;
 import tech.claudioed.domain.shared.Targets;
 import tech.claudioed.domain.subsidy.Subsidy;
 
@@ -57,10 +59,10 @@ public class FinanceCondition {
 
   @Embedded
   @AttributeOverrides({
-      @AttributeOverride(name="start",column=@Column(name="start_date")),
-      @AttributeOverride(name="end",column=@Column(name="end_date"))
+      @AttributeOverride(name="start",column=@Column(name="validity_start_date")),
+      @AttributeOverride(name="end",column=@Column(name="validity_end_date"))
   })
-  private Interval period;
+  private Interval validity;
 
   @Column(name = "one_time_usage")
   private boolean oneTimeUsage;
@@ -73,18 +75,40 @@ public class FinanceCondition {
   })
   private MonetaryAmount maxAmount;
 
+  private String utm;
+
+  @Embedded
+  @AttributeOverrides({
+      @AttributeOverride(name="id",column=@Column(name="financing_line_id"))
+  })
+  private FinancingLineId financingLineId;
+
+  private MarketSegment segment;
+
+  @Embedded
+  @AttributeOverrides({
+      @AttributeOverride(name="start",column=@Column(name="contracting_start_date")),
+      @AttributeOverride(name="end",column=@Column(name="contracting_end_date"))
+  })
+  private Interval contractingLimit;
+
   public FinanceCondition(){}
 
-  public FinanceCondition(String name, Duration maxTimeLoan,
-      Interval interval, boolean oneTimeUsage,Targets targets,BigDecimal interestRate,DownPaymentRequirements downPaymentRequirements,MonetaryAmount monetaryAmount) {
+  FinanceCondition(String name, Duration maxTimeLoan,
+      Interval interval, boolean oneTimeUsage,Targets targets,BigDecimal interestRate,DownPaymentRequirements downPaymentRequirements,
+      MonetaryAmount monetaryAmount,String utm,MarketSegment segment,FinancingLineId financingLineId,Interval contractingLimit) {
     this.name = name;
     this.maxTimeLoan = maxTimeLoan;
-    this.period = interval;
+    this.validity = interval;
     this.oneTimeUsage = oneTimeUsage;
     this.targets = targets;
     this.interestRate = interestRate;
     this.downPaymentRequirements = downPaymentRequirements;
     this.maxAmount= monetaryAmount;
+    this.utm = utm;
+    this.segment = segment;
+    this.financingLineId = financingLineId;
+    this.contractingLimit = contractingLimit;
   }
 
   public UUID getId() {
@@ -107,8 +131,8 @@ public class FinanceCondition {
     return maxTimeLoan;
   }
 
-  public Interval getPeriod() {
-    return period;
+  public Interval getValidity() {
+    return validity;
   }
 
   public boolean isOneTimeUsage() {
@@ -152,6 +176,22 @@ public class FinanceCondition {
 
   public Amount toAmount(){
     return new Amount(this.getMaxAmount().getCurrency().getCurrencyCode(),this.getMaxAmount().getNumber().doubleValueExact());
+  }
+
+  public String getUtm() {
+    return utm;
+  }
+
+  public FinancingLineId getFinancingLineId() {
+    return financingLineId;
+  }
+
+  public MarketSegment getSegment() {
+    return segment;
+  }
+
+  public Interval getContractingLimit() {
+    return contractingLimit;
   }
 
 }

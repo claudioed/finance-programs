@@ -7,12 +7,14 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import org.eclipse.microprofile.openapi.annotations.tags.Tag;
 import tech.claudioed.adapter.http.utils.FormatFinanceCondition;
 import tech.claudioed.domain.financecondition.services.FinanceConditionService;
 import tech.claudioed.port.inputs.financecondition.NewFinanceCondition;
 import tech.claudioed.port.outputs.financecondition.FinanceConditionData;
 
 @Path("/finance-conditions")
+@Tag(name = "Finance conditions BO", description = "Finance conditions for back office operations")
 public class FinanceConditionController {
 
   private final FinanceConditionService financeConditionService;

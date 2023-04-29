@@ -3,7 +3,7 @@ package tech.claudioed.domain.subsidy.picker;
 import java.util.Comparator;
 import java.util.List;
 import tech.claudioed.domain.subsidy.Subsidy;
-import tech.claudioed.domain.subsidy.specification.CreditDeliverySubsidyValidationContext;
+import tech.claudioed.domain.subsidy.specification.validation.CreditDeliverySubsidyValidationContext;
 
 public class SubsidyPicker {
 

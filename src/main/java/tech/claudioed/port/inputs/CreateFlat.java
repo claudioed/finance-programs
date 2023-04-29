@@ -2,6 +2,7 @@ package tech.claudioed.port.inputs;
 
 import java.math.BigDecimal;
 import tech.claudioed.domain.shared.Interval;
+import tech.claudioed.domain.shared.MarketSegment;
 import tech.claudioed.domain.shared.Targets;
 
 public class CreateFlat {
@@ -13,6 +14,8 @@ public class CreateFlat {
   private Interval period;
 
   private BigDecimal rate;
+
+  private MarketSegment segment;
 
   public Targets getTargets() {
     return targets;
@@ -44,5 +47,13 @@ public class CreateFlat {
 
   public void setRate(BigDecimal rate) {
     this.rate = rate;
+  }
+
+  public MarketSegment getSegment() {
+    return segment;
+  }
+
+  public void setSegment(MarketSegment segment) {
+    this.segment = segment;
   }
 }

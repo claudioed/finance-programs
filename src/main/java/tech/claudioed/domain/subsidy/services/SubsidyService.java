@@ -19,7 +19,7 @@ public class SubsidyService {
   @Transactional
   public Subsidy createSubsidy(CreateSubsidy request){
     var subsidy = new Subsidy(request.getPeriod(),request.getRate(),request.getTargets(),request.getMaxTimeLoan(),request.getName(),
-        SubsidyType.FACTORY);
+        SubsidyType.FACTORY,request.getSegment());
     this.subsidyRepository.persist(subsidy);
     return subsidy;
   }
