@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
 import org.hibernate.annotations.GenericGenerator;
 
 
@@ -21,16 +22,21 @@ public class Targets {
   private String id;
 
   @ElementCollection
+  @NotEmpty
   private Set<String> dealers;
   @ElementCollection
+  @NotEmpty
   private Set<String> products;
 
   @ElementCollection
+  @NotEmpty
   private Set<String> productFamilies;
   @ElementCollection
+  @NotEmpty
   private Set<String> customers;
 
   @ElementCollection
+  @NotEmpty
   private Set<String> cultures;
 
   public Set<String> getDealers() {

@@ -3,6 +3,7 @@ package tech.claudioed.domain.financecondition.repositories;
 import io.quarkus.hibernate.orm.panache.PanacheRepository;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.UUID;
 import javax.enterprise.context.ApplicationScoped;
 import tech.claudioed.domain.financecondition.CreditDeliveryQuery;
 import tech.claudioed.domain.financecondition.DealerQuery;
@@ -22,7 +23,7 @@ public class FinanceConditionRepository implements PanacheRepository<FinanceCond
   }
 
   public FinanceCondition get(String id){
-    return null;
+    return find("id", UUID.fromString(id)).firstResult();
   }
 
   public List<FinanceCondition> forDealers(DealerQuery query){

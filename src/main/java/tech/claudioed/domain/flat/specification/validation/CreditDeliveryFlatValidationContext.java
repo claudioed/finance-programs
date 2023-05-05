@@ -1,5 +1,10 @@
 package tech.claudioed.domain.flat.specification.validation;
 
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.IntStream;
+import tech.claudioed.domain.financecondition.specification.validation.CreditDeliveryFinanceConditionValidationMessages;
 import tech.claudioed.domain.flat.Flat;
 import tech.claudioed.domain.flat.specification.CustomerAllowedToUseFlat;
 import tech.claudioed.domain.flat.specification.DealerAllowedToUseFlat;
@@ -9,6 +14,7 @@ import tech.claudioed.domain.flat.specification.ProductAllowedToUseFlat;
 import tech.claudioed.domain.flat.specification.ProductFamilyAllowedToUseFlat;
 import tech.claudioed.domain.shared.LoanTime;
 import tech.claudioed.domain.shared.MarketSegment;
+import tech.claudioed.domain.shared.context.EvaluationContext;
 import tech.claudioed.port.inputs.finance.CustomerId;
 import tech.claudioed.port.inputs.finance.DealerId;
 import tech.claudioed.port.inputs.finance.ProductFamilyId;
@@ -30,6 +36,8 @@ public class CreditDeliveryFlatValidationContext {
 
   private final MarketSegmentAllowedToUseFlat marketSegmentAllowedToUseFlat;
 
+  private final Set<EvaluationContext> evaluationContexts = new HashSet<>();
+
   CreditDeliveryFlatValidationContext(DealerId dealerId,CustomerId customerId,ProductId productId, ProductFamilyId productFamilyId,
       MarketSegment segment, LoanTime loanTime, Flat flat) {
     this.flat = flat;
@@ -39,6 +47,12 @@ public class CreditDeliveryFlatValidationContext {
     this.productAllowed = new ProductAllowedToUseFlat(productId);
     this.productFamilyAllowed = new ProductFamilyAllowedToUseFlat(productFamilyId);
     this.marketSegmentAllowedToUseFlat = new MarketSegmentAllowedToUseFlat(segment);
+    evaluationContexts.add(new EvaluationContext("dealer-allowed",this.dealerAllowed.isSatisfiedBy(this.flat),CreditDeliveryFinanceConditionValidationMessages.DEALER_NOT_ALLOWED.message(), this.dealerAllowed.isSatisfiedBy(this.flat) ? 1 : 0));
+    evaluationContexts.add(new EvaluationContext("customer-allowed",this.customerAllowed.isSatisfiedBy(this.flat),CreditDeliveryFinanceConditionValidationMessages.CUSTOMER_NOT_ALLOWED.message(), this.customerAllowed.isSatisfiedBy(this.flat) ? 1 : 0));
+    evaluationContexts.add(new EvaluationContext("product-allowed",this.productAllowed.isSatisfiedBy(this.flat),CreditDeliveryFinanceConditionValidationMessages.PRODUCT_NOT_ALLOWED.message(), this.productAllowed.isSatisfiedBy(this.flat) ? 1 : 0));
+    evaluationContexts.add(new EvaluationContext("product-family-allowed",this.productFamilyAllowed.isSatisfiedBy(this.flat),CreditDeliveryFinanceConditionValidationMessages.PRODUCT_FAMILY_NOT_ALLOWED.message(), this.productFamilyAllowed.isSatisfiedBy(this.flat) ? 1 : 0));
+    evaluationContexts.add(new EvaluationContext("market-segment",this.marketSegmentAllowedToUseFlat.isSatisfiedBy(this.flat),CreditDeliveryFinanceConditionValidationMessages.MARKET_SEGMENT_NOT_ALLOWED.message(), this.marketSegmentAllowedToUseFlat.isSatisfiedBy(this.flat) ? 1 : 0));
+
   }
 
   public boolean isSatisfied() {
@@ -49,13 +63,12 @@ public class CreditDeliveryFlatValidationContext {
   }
 
   public int points(){
-    int points = 0;
-    points+= this.dealerAllowed.isSatisfiedBy(flat) ? 1 : 0;
-    points+= this.loanAllowed.isSatisfiedBy(flat) ? 1 : 0;
-    points+= this.customerAllowed.isSatisfiedBy(flat) ? 1 : 0;
-    points+= this.productAllowed.isSatisfiedBy(flat) ? 1 : 0;
-    points+= this.productFamilyAllowed.isSatisfiedBy(flat) ? 1 : 0;
-    return points;
+    return this.evaluationContexts.stream().flatMapToInt(ec -> IntStream.of(ec.point())).sum();
+  }
+
+  public List<String> messages(){
+    return this.evaluationContexts.stream().filter(ec -> !ec.success()).map(
+        EvaluationContext::message).toList();
   }
 
   public Flat getFlat() {

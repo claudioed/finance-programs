@@ -1,8 +1,10 @@
 package tech.claudioed.adapter.http;
 
 import io.smallrye.common.constraint.NotNull;
+import java.util.List;
 import javax.validation.Valid;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -29,6 +31,12 @@ public class FinanceConditionController {
   public FinanceConditionData createFinanceCondition(@Valid @NotNull NewFinanceCondition request) {
     var fc = this.financeConditionService.newFinanceCondition(request);
     return FormatFinanceCondition.from(fc);
+  }
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  public List<FinanceConditionData> financeConditions() {
+    return this.financeConditionService.financeConditions().stream().map(FormatFinanceCondition::from).toList();
   }
 
 }

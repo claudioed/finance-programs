@@ -1,6 +1,7 @@
 package tech.claudioed.port.inputs.analysis;
 
 import java.time.LocalDate;
+import javax.validation.constraints.NotEmpty;
 import tech.claudioed.domain.financecondition.RatingId;
 import tech.claudioed.domain.shared.MarketSegment;
 import tech.claudioed.port.inputs.finance.CultureId;
@@ -13,25 +14,33 @@ public class CreditApplicationAnalysisRequest {
 
   private CreditApplication application;
 
+  @NotEmpty
   private String productFamily;
 
+  @NotEmpty
   private String product;
 
+  @NotEmpty
   private String customer;
 
+  @NotEmpty
   private LocalDate contractDate;
 
+  @NotEmpty
   private String dealer;
 
+  @NotEmpty
   private String financeCondition;
 
   private String rating;
 
+  @NotEmpty
   private String culture;
 
   private String utm;
 
-  private MarketSegment marketSegment;
+  @NotEmpty
+  private MarketSegment segment;
 
   public String getProductFamily() {
     return productFamily;
@@ -89,8 +98,16 @@ public class CreditApplicationAnalysisRequest {
     return application;
   }
 
-  public MarketSegment getMarketSegment() {
-    return marketSegment;
+  public MarketSegment getSegment() {
+    return segment;
+  }
+
+  public String getCulture() {
+    return culture;
+  }
+
+  public String getRating() {
+    return rating;
   }
 
 }

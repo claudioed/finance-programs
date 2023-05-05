@@ -14,9 +14,9 @@ import tech.claudioed.adapter.http.utils.FormatFinanceCondition;
 import tech.claudioed.domain.financecondition.CreditDeliveryQuery;
 import tech.claudioed.domain.financecondition.services.FinanceConditionService;
 import tech.claudioed.port.inputs.FinanceProgramQuery;
-import tech.claudioed.port.outputs.financecondition.FinanceConditionData;
+import tech.claudioed.port.outputs.financecondition.CreditDeliveryFinanceCondition;
 
-@Path("/credit-delivery-finance-conditions")
+@Path("/credit-delivery")
 @Tag(name = "Credit Delivery", description = "Finance conditions that are available for credit applications")
 public class CreditDeliveryController {
 
@@ -27,13 +27,13 @@ public class CreditDeliveryController {
   }
 
   @POST
-  @Path("/_search")
+  @Path("/finance-conditions/_search")
   @Produces(MediaType.APPLICATION_JSON)
   @Consumes(MediaType.APPLICATION_JSON)
-  public List<FinanceConditionData> findFinanceCondition(@Valid @NotNull FinanceProgramQuery request) {
+  public List<CreditDeliveryFinanceCondition> findFinanceCondition(@Valid @NotNull FinanceProgramQuery request) {
     var query  = new CreditDeliveryQuery(request.dealerId(),request.productFamilyId(),request.productId(),request.customerId(),request.cultureId(),request.ratingId(),request.getLoanTime(),request.getSegment(),
         LocalDate.now(),request.getDownPayment(),request.amount(),request.getUtm());
-    return this.financeConditionService.creditDeliveryQuery(query).stream().map(FormatFinanceCondition::from).toList();
+    return this.financeConditionService.creditDeliveryQuery(query).stream().map(FormatFinanceCondition::forCreditDelivery).toList();
   }
 
 }

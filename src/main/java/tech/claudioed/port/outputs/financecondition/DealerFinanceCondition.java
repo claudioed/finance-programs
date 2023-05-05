@@ -5,7 +5,7 @@ import tech.claudioed.domain.shared.Amount;
 import tech.claudioed.port.outputs.flat.FlatData;
 import tech.claudioed.port.outputs.subsidy.SubsidyData;
 
-public class FinanceConditionData {
+public class DealerFinanceCondition {
 
   private String id;
 
@@ -17,16 +17,14 @@ public class FinanceConditionData {
 
   private SubsidyData dealerSubsidy;
 
-  private SubsidyData factorySubsidy;
-
   private FlatData flat;
 
   private String utm;
 
-  public FinanceConditionData(){}
+  public DealerFinanceCondition(){}
 
-  public FinanceConditionData(String id,String name, BigDecimal interestRate, Amount maxAmount,
-      SubsidyData dealerSubsidy,SubsidyData factorySubsidy, FlatData flat,String utm) {
+  public DealerFinanceCondition(String id,String name, BigDecimal interestRate, Amount maxAmount,
+      SubsidyData dealerSubsidy, FlatData flat,String utm) {
     this.id = id;
     this.interestRate = interestRate;
     this.maxAmount = maxAmount;
@@ -34,7 +32,6 @@ public class FinanceConditionData {
     this.flat = flat;
     this.name = name;
     this.utm = utm;
-    this.factorySubsidy = factorySubsidy;
   }
 
   public String getId() {
@@ -63,10 +60,6 @@ public class FinanceConditionData {
 
   public String getUtm() {
     return utm;
-  }
-
-  public SubsidyData getFactorySubsidy() {
-    return factorySubsidy;
   }
 
 }

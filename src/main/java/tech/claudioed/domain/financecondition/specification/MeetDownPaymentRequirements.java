@@ -19,7 +19,7 @@ public class MeetDownPaymentRequirements extends AbstractSpecification<FinanceCo
   public boolean isSatisfiedBy(FinanceCondition financeCondition) {
     var dr = financeCondition.getDownPaymentRequirements();
     return dr.getMaxDate().isAfter(this.firstInstallment)
-        && dr.getPercent().compareTo(this.downPaymentPercent) < 0;
+        && dr.getPercent().compareTo(this.downPaymentPercent) <= 0;
   }
 
 }

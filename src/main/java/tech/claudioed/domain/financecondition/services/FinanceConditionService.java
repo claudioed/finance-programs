@@ -76,4 +76,8 @@ public class FinanceConditionService {
     return this.financeConditionRepository.forCreditDelivery(query);
   }
 
+  public List<FinanceCondition> financeConditions(){
+    return this.financeConditionRepository.listAll();
+  }
+
 }

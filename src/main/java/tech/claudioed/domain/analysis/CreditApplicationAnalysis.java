@@ -1,7 +1,7 @@
 package tech.claudioed.domain.analysis;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
@@ -44,6 +44,43 @@ public class CreditApplicationAnalysis {
   })
   private AnalysisStatus status;
 
+  public CreditApplicationAnalysis(){}
 
+  private CreditApplicationAnalysis(CreditApplicationId creditApplicationId,
+      FinanceConditionId financeConditionId, AnalysisStatus status) {
+    this.creditApplicationId = creditApplicationId;
+    this.financeConditionId = financeConditionId;
+    this.status = status;
+    this.analyzedAt = LocalDateTime.now();
+  }
 
+  public static CreditApplicationAnalysis newApproved(CreditApplicationId creditApplicationId,
+      FinanceConditionId financeConditionId){
+    return new CreditApplicationAnalysis(creditApplicationId,financeConditionId,new AnalysisStatus(true, List.of()));
+  }
+
+  public static CreditApplicationAnalysis newDeclined(CreditApplicationId creditApplicationId,
+      FinanceConditionId financeConditionId,List<String> notes){
+    return new CreditApplicationAnalysis(creditApplicationId,financeConditionId,new AnalysisStatus(false,notes));
+  }
+
+  public UUID getId() {
+    return id;
+  }
+
+  public CreditApplicationId getCreditApplicationId() {
+    return creditApplicationId;
+  }
+
+  public FinanceConditionId getFinanceConditionId() {
+    return financeConditionId;
+  }
+
+  public LocalDateTime getAnalyzedAt() {
+    return analyzedAt;
+  }
+
+  public AnalysisStatus getStatus() {
+    return status;
+  }
 }

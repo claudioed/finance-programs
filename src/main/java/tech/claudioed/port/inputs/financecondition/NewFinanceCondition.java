@@ -1,6 +1,8 @@
 package tech.claudioed.port.inputs.financecondition;
 
 import java.math.BigDecimal;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import tech.claudioed.domain.financecondition.DownPaymentRequirements;
 import tech.claudioed.domain.shared.Amount;
 import tech.claudioed.domain.shared.Duration;
@@ -12,6 +14,7 @@ import tech.claudioed.domain.shared.Targets;
 
 public class NewFinanceCondition {
 
+  @NotEmpty
   private String name;
 
   private SubsidyInformation factorySubsidy;
@@ -36,6 +39,7 @@ public class NewFinanceCondition {
 
   private DownPaymentRequirements downPaymentRequirements;
 
+  @NotNull
   private MarketSegment segment;
 
   private FinancingLineId financingLine;
