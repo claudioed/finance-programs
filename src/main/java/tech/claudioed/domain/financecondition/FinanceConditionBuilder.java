@@ -76,7 +76,7 @@ public class FinanceConditionBuilder {
   }
 
   public FinanceConditionBuilder contractingLimit(Interval interval) {
-    this.contractingLimit = contractingLimit;
+    this.contractingLimit = interval;
     return this;
   }
 

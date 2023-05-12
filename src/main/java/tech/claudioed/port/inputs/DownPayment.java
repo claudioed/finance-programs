@@ -9,6 +9,13 @@ public class DownPayment {
 
   private LocalDate firstInstallment;
 
+  public DownPayment(){}
+
+  public DownPayment(BigDecimal percent, LocalDate firstInstallment) {
+    this.percent = percent;
+    this.firstInstallment = firstInstallment;
+  }
+
   public BigDecimal getPercent() {
     return percent;
   }

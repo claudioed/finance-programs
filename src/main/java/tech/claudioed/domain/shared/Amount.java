@@ -1,5 +1,7 @@
 package tech.claudioed.domain.shared;
 
+import javax.money.Monetary;
+import javax.money.MonetaryAmount;
 import javax.validation.Valid;
 
 public class Amount {
@@ -27,5 +29,11 @@ public class Amount {
 
   public void setAmount(Double amount) {
     this.amount = amount;
+  }
+
+  public MonetaryAmount toMonetary(){
+    return Monetary.getDefaultAmountFactory()
+        .setCurrency(Monetary.getCurrency(this.currency))
+        .setNumber(this.amount).create();
   }
 }

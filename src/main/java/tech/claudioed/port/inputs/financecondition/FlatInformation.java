@@ -7,6 +7,12 @@ public class FlatInformation {
   private BigDecimal rate;
   private FlatId flat;
 
+  public FlatInformation(){}
+
+  public FlatInformation(String name, BigDecimal rate) {
+    this.name = name;
+    this.rate = rate;
+  }
   public String getName() {
     return name;
   }
@@ -15,7 +21,7 @@ public class FlatInformation {
     return rate;
   }
 
-  public String getFlatId() {
+  public String id() {
     return flat.id();
   }
   public FlatId getFlat() {

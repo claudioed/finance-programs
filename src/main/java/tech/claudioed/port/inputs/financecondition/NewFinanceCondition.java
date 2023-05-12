@@ -6,7 +6,6 @@ import javax.validation.constraints.NotNull;
 import tech.claudioed.domain.financecondition.DownPaymentRequirements;
 import tech.claudioed.domain.shared.Amount;
 import tech.claudioed.domain.shared.Duration;
-import tech.claudioed.domain.shared.FinancingLine;
 import tech.claudioed.domain.shared.FinancingLineId;
 import tech.claudioed.domain.shared.Interval;
 import tech.claudioed.domain.shared.MarketSegment;
@@ -112,6 +111,69 @@ public class NewFinanceCondition {
 
   public Interval getContractingLimit() {
     return contractingLimit;
+  }
+
+  public void setName(String name) {
+    this.name = name;
+  }
+
+  public void setFactorySubsidy(
+      SubsidyInformation factorySubsidy) {
+    this.factorySubsidy = factorySubsidy;
+  }
+
+  public void setDealerSubsidy(
+      SubsidyInformation dealerSubsidy) {
+    this.dealerSubsidy = dealerSubsidy;
+  }
+
+  public void setFlat(FlatInformation flat) {
+    this.flat = flat;
+  }
+
+  public void setOneTimeUsage(boolean oneTimeUsage) {
+    this.oneTimeUsage = oneTimeUsage;
+  }
+
+  public void setTargets(Targets targets) {
+    this.targets = targets;
+  }
+
+  public void setMaxTimeLoan(Duration maxTimeLoan) {
+    this.maxTimeLoan = maxTimeLoan;
+  }
+
+  public void setPeriod(Interval period) {
+    this.period = period;
+  }
+
+  public void setInterestRate(BigDecimal interestRate) {
+    this.interestRate = interestRate;
+  }
+
+  public void setMaxAmount(Amount maxAmount) {
+    this.maxAmount = maxAmount;
+  }
+
+  public void setCampaign(boolean campaign) {
+    this.campaign = campaign;
+  }
+
+  public void setDownPaymentRequirements(
+      DownPaymentRequirements downPaymentRequirements) {
+    this.downPaymentRequirements = downPaymentRequirements;
+  }
+
+  public void setSegment(MarketSegment segment) {
+    this.segment = segment;
+  }
+
+  public void setFinancingLine(FinancingLineId financingLine) {
+    this.financingLine = financingLine;
+  }
+
+  public void setContractingLimit(Interval contractingLimit) {
+    this.contractingLimit = contractingLimit;
   }
 
 }

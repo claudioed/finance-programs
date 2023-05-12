@@ -139,19 +139,16 @@ public class FinanceCondition {
     return oneTimeUsage;
   }
 
-  public FinanceCondition configFlat(Flat flat){
+  public void configFlat(Flat flat){
     this.flat = flat;
-    return this;
   }
 
-  public FinanceCondition configFactorySubsidy(Subsidy subsidy){
+  public void configFactorySubsidy(Subsidy subsidy){
     this.factorySubsidy = subsidy;
-    return this;
   }
 
-  public FinanceCondition configDealerSubsidy(Subsidy subsidy){
+  public void configDealerSubsidy(Subsidy subsidy){
     this.dealerSubsidy = subsidy;
-    return this;
   }
 
   public Targets getTargets() {

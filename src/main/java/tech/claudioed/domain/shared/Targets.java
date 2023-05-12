@@ -1,5 +1,6 @@
 package tech.claudioed.domain.shared;
 
+import java.util.HashSet;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
@@ -23,21 +24,21 @@ public class Targets {
 
   @ElementCollection
   @NotEmpty
-  private Set<String> dealers;
+  private Set<String> dealers = new HashSet<>();
   @ElementCollection
   @NotEmpty
-  private Set<String> products;
+  private Set<String> products = new HashSet<>();
 
   @ElementCollection
   @NotEmpty
-  private Set<String> productFamilies;
+  private Set<String> productFamilies =new HashSet<>();
   @ElementCollection
   @NotEmpty
-  private Set<String> customers;
+  private Set<String> customers =new HashSet<>();
 
   @ElementCollection
   @NotEmpty
-  private Set<String> cultures;
+  private Set<String> cultures = new HashSet<>();
 
   public Set<String> getDealers() {
     return dealers;
@@ -61,6 +62,25 @@ public class Targets {
 
   public Set<String> getCultures() {
     return cultures;
+  }
+  public boolean addCulture(String culture){
+    return this.cultures.add(culture);
+  }
+
+  public boolean addProductFamily(String productFamily){
+    return this.productFamilies.add(productFamily);
+  }
+
+  public boolean addProduct(String product){
+    return this.products.add(product);
+  }
+
+  public boolean addCustomer(String customer){
+    return this.customers.add(customer);
+  }
+
+  public boolean addDealer(String dealer){
+    return this.dealers.add(dealer);
   }
 
 }

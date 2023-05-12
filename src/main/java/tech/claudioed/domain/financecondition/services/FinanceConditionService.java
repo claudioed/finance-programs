@@ -35,9 +35,7 @@ public class FinanceConditionService {
 
   @Transactional
   public FinanceCondition newFinanceCondition(NewFinanceCondition request){
-    var maxAmount = Monetary.getDefaultAmountFactory()
-        .setCurrency(Monetary.getCurrency(request.getMaxAmount().getCurrency()))
-        .setNumber(request.getMaxAmount().getAmount()).create();
+    var maxAmount = request.getMaxAmount().toMonetary();
     var builder = new FinanceConditionBuilder().name(request.getName()).maxTimeLoan(request.getMaxTimeLoan()).interval(request.getPeriod())
         .oneTimeUsage(request.isOneTimeUsage()).targets(request.getTargets()).interestRate(request.getInterestRate())
         .downPaymentRequirements(request.getDownPaymentRequirements()).monetaryAmount(maxAmount).contractingLimit(request.getContractingLimit())
@@ -51,7 +49,7 @@ public class FinanceConditionService {
       var flat = new Flat(request.getFlat().getName(),request.getTargets(),request.getFlat().getRate(),request.getPeriod(),request.getSegment());
       financeCondition.configFlat(flat);
     }else {
-      var flat = this.flatRepository.get(request.getFlat().getFlatId());
+      var flat = this.flatRepository.get(request.getFlat().id());
       financeCondition.configFlat(flat.get());
     }
 
@@ -59,7 +57,7 @@ public class FinanceConditionService {
       var subsidy = new Subsidy(request.getPeriod(),request.getFactorySubsidy().getRate(),request.getTargets(),request.getMaxTimeLoan(),request.getFactorySubsidy().getName(), SubsidyType.FACTORY,request.getSegment());
       financeCondition.configFactorySubsidy(subsidy);
     }else {
-      var subsidy = this.subsidyRepository.get(request.getFactorySubsidy().getId());
+      var subsidy = this.subsidyRepository.get(request.getFactorySubsidy().id());
       financeCondition.configFactorySubsidy(subsidy.get());
     }
     var dealerSubsidy = new Subsidy(request.getPeriod(),request.getDealerSubsidy().getRate(),request.getTargets(),request.getMaxTimeLoan(),request.getDealerSubsidy().getName(), SubsidyType.DEALER,request.getSegment());

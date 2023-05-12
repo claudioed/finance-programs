@@ -8,6 +8,12 @@ public class SubsidyInformation {
 
   private SubsidyId subsidy;
 
+  public SubsidyInformation(){}
+
+  public SubsidyInformation(String name, BigDecimal rate) {
+    this.name = name;
+    this.rate = rate;
+  }
   public String getName() {
     return name;
   }
@@ -20,7 +26,7 @@ public class SubsidyInformation {
     return subsidy;
   }
 
-  public String getId(){
+  public String id(){
     return this.subsidy.getId();
   }
 

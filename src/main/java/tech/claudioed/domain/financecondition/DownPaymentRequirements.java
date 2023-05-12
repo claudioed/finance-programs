@@ -11,6 +11,14 @@ public class DownPaymentRequirements {
 
   private LocalDate maxDate;
 
+  public DownPaymentRequirements(){}
+
+  public DownPaymentRequirements(BigDecimal percent, LocalDate maxDate) {
+    this.percent = percent;
+    this.maxDate = maxDate;
+  }
+
+
   public BigDecimal getPercent() {
     return percent;
   }

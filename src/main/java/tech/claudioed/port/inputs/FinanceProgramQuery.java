@@ -109,9 +109,7 @@ public class FinanceProgramQuery {
   }
 
   public MonetaryAmount amount(){
-    return Monetary.getDefaultAmountFactory()
-        .setCurrency(Monetary.getCurrency(this.loanAmount.getCurrency()))
-        .setNumber(this.loanAmount.getAmount()).create();
+    return this.loanAmount.toMonetary();
   }
 
   public String getUtm() {

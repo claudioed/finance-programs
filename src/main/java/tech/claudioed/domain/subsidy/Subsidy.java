@@ -2,6 +2,7 @@ package tech.claudioed.domain.subsidy;
 
 
 import java.math.BigDecimal;
+import java.util.UUID;
 import javax.persistence.AttributeOverride;
 import javax.persistence.AttributeOverrides;
 import javax.persistence.CascadeType;
@@ -26,7 +27,7 @@ public class Subsidy {
   @Column(name = "id")
   @GeneratedValue(generator = "UUID")
   @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-  private String id;
+  private UUID id;
 
   @Embedded
   @AttributeOverrides({
@@ -49,6 +50,8 @@ public class Subsidy {
 
   private MarketSegment segment;
 
+  private SubsidyBudget budget;
+
   public Subsidy(){}
   public Subsidy(Interval validPeriod, BigDecimal rate, Targets target, Duration maxTimeLoan,String name,SubsidyType type,MarketSegment segment) {
     this.validPeriod = validPeriod;
@@ -68,7 +71,7 @@ public class Subsidy {
     return rate;
   }
 
-  public String getId() {
+  public UUID getId() {
     return id;
   }
 
@@ -90,6 +93,15 @@ public class Subsidy {
 
   public MarketSegment getSegment() {
     return segment;
+  }
+
+  public SubsidyBudget getBudget() {
+    return budget;
+  }
+
+  public Subsidy registerBudget(SubsidyBudget budget){
+    this.budget = budget;
+    return this;
   }
 
 }

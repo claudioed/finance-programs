@@ -1,4 +1,4 @@
-package tech.claudioed.port.inputs;
+package tech.claudioed.port.inputs.subsidy;
 
 import java.math.BigDecimal;
 import tech.claudioed.domain.shared.Duration;
