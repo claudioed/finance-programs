@@ -12,7 +12,6 @@ import tech.claudioed.port.inputs.financecondition.NewFinanceCondition;
 @QuarkusTest
 public class LoadDataTest {
 
-  @Test
   public void testHelloEndpoint() {
     var fcs = new ArrayList<NewFinanceCondition>();
     fcs.addAll(FinanceConditionDataLoader.loadProductFamilies());

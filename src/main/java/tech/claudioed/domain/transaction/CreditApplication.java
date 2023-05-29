@@ -27,4 +27,12 @@ public class CreditApplication {
   })
   private MonetaryAmount amount;
 
+  public CreditApplicationId getId() {
+    return id;
+  }
+
+  public MonetaryAmount getAmount() {
+    return amount;
+  }
+
 }
