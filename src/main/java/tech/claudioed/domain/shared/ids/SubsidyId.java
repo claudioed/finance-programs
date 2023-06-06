@@ -1,4 +1,4 @@
-package tech.claudioed.port.inputs.financecondition;
+package tech.claudioed.domain.shared.ids;
 
 public class SubsidyId {
   private String id;

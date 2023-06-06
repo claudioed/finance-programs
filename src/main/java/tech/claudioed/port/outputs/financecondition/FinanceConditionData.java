@@ -2,6 +2,7 @@ package tech.claudioed.port.outputs.financecondition;
 
 import java.math.BigDecimal;
 import tech.claudioed.domain.shared.Amount;
+import tech.claudioed.domain.shared.Interval;
 import tech.claudioed.port.outputs.flat.FlatData;
 import tech.claudioed.port.outputs.subsidy.SubsidyData;
 
@@ -23,10 +24,14 @@ public class FinanceConditionData {
 
   private String utm;
 
+  public Interval validUntil;
+
+  public Interval contractingLimit;
+
   public FinanceConditionData(){}
 
   public FinanceConditionData(String id,String name, BigDecimal interestRate, Amount maxAmount,
-      SubsidyData dealerSubsidy,SubsidyData factorySubsidy, FlatData flat,String utm) {
+      SubsidyData dealerSubsidy,SubsidyData factorySubsidy, FlatData flat,String utm,Interval validUntil,Interval contractingLimit) {
     this.id = id;
     this.interestRate = interestRate;
     this.maxAmount = maxAmount;
@@ -35,6 +40,8 @@ public class FinanceConditionData {
     this.name = name;
     this.utm = utm;
     this.factorySubsidy = factorySubsidy;
+    this.validUntil = validUntil;
+    this.contractingLimit = contractingLimit;
   }
 
   public String getId() {
@@ -69,4 +76,11 @@ public class FinanceConditionData {
     return factorySubsidy;
   }
 
+  public Interval getContractingLimit() {
+    return contractingLimit;
+  }
+
+  public Interval getValidUntil() {
+    return validUntil;
+  }
 }

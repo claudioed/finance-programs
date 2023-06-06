@@ -14,11 +14,11 @@ import tech.claudioed.domain.financecondition.DealerQuery;
 import tech.claudioed.domain.financecondition.RatingId;
 import tech.claudioed.domain.financecondition.services.FinanceConditionService;
 import tech.claudioed.port.inputs.dealer.DealerFinanceConditionQuery;
-import tech.claudioed.port.inputs.finance.CultureId;
-import tech.claudioed.port.inputs.finance.CustomerId;
-import tech.claudioed.port.inputs.finance.DealerId;
-import tech.claudioed.port.inputs.finance.ProductFamilyId;
-import tech.claudioed.port.inputs.finance.ProductId;
+import tech.claudioed.domain.shared.ids.CultureId;
+import tech.claudioed.domain.shared.ids.CustomerId;
+import tech.claudioed.domain.shared.ids.DealerId;
+import tech.claudioed.domain.shared.ids.ProductFamilyId;
+import tech.claudioed.domain.shared.ids.ProductId;
 import tech.claudioed.port.outputs.financecondition.CreditDeliveryFinanceCondition;
 
 @Path("/dealers")

@@ -1,7 +1,6 @@
 package tech.claudioed.port.inputs;
 
 import java.math.BigDecimal;
-import javax.money.Monetary;
 import javax.money.MonetaryAmount;
 import javax.validation.constraints.NotEmpty;
 
@@ -9,11 +8,11 @@ import tech.claudioed.domain.financecondition.RatingId;
 import tech.claudioed.domain.shared.Amount;
 import tech.claudioed.domain.shared.LoanTime;
 import tech.claudioed.domain.shared.MarketSegment;
-import tech.claudioed.port.inputs.finance.CultureId;
-import tech.claudioed.port.inputs.finance.CustomerId;
-import tech.claudioed.port.inputs.finance.DealerId;
-import tech.claudioed.port.inputs.finance.ProductFamilyId;
-import tech.claudioed.port.inputs.finance.ProductId;
+import tech.claudioed.domain.shared.ids.CultureId;
+import tech.claudioed.domain.shared.ids.CustomerId;
+import tech.claudioed.domain.shared.ids.DealerId;
+import tech.claudioed.domain.shared.ids.ProductFamilyId;
+import tech.claudioed.domain.shared.ids.ProductId;
 
 public class FinanceProgramQuery {
 

@@ -40,6 +40,10 @@ public class Targets {
   @NotEmpty
   private Set<String> cultures = new HashSet<>();
 
+  @ElementCollection
+  @NotEmpty
+  private Set<String> ratings = new HashSet<>();
+
   public Set<String> getDealers() {
     return dealers;
   }
@@ -63,6 +67,11 @@ public class Targets {
   public Set<String> getCultures() {
     return cultures;
   }
+
+  public Set<String> getRatings() {
+    return ratings;
+  }
+
   public boolean addCulture(String culture){
     return this.cultures.add(culture);
   }
@@ -81,6 +90,10 @@ public class Targets {
 
   public boolean addDealer(String dealer){
     return this.dealers.add(dealer);
+  }
+
+  public boolean addRating(String rating){
+    return this.ratings.add(rating);
   }
 
 }

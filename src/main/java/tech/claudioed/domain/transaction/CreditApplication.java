@@ -27,6 +27,14 @@ public class CreditApplication {
   })
   private MonetaryAmount amount;
 
+  public CreditApplication() {
+  }
+
+  public CreditApplication(CreditApplicationId id, MonetaryAmount amount) {
+    this.id = id;
+    this.amount = amount;
+  }
+
   public CreditApplicationId getId() {
     return id;
   }

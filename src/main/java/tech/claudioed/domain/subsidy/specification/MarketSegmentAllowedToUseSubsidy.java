@@ -1,11 +1,8 @@
 package tech.claudioed.domain.subsidy.specification;
 
-import java.util.Objects;
 import tech.claudioed.domain.shared.MarketSegment;
-import tech.claudioed.domain.shared.helper.Constants;
 import tech.claudioed.domain.shared.specification.AbstractSpecification;
 import tech.claudioed.domain.subsidy.Subsidy;
-import tech.claudioed.port.inputs.finance.CultureId;
 
 public class MarketSegmentAllowedToUseSubsidy extends AbstractSpecification<Subsidy> {
 

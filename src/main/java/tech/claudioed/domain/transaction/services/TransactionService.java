@@ -1,5 +1,6 @@
 package tech.claudioed.domain.transaction.services;
 
+import java.time.LocalDateTime;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.event.Event;
 import javax.transaction.Transactional;
@@ -31,7 +32,8 @@ public class TransactionService {
     var fc = this.financeConditionRepository.get(provisioning.getFinanceConditionId().getId());
     var transaction = Transaction.newRegistered(provisioning.getFinanceConditionId(),new SubsidyId(fc.getFactorySubsidy().getId().toString()),provisioning.getApplication());
     this.transactionRepository.persist(transaction);
-    this.subsidyTrigger.fire(new SubsidyProvisioned(provisioning.getFinanceConditionId(),new SubsidyId(fc.getFactorySubsidy().getId().toString()),provisioning.getApplication()));
+    this.subsidyTrigger.fire(new SubsidyProvisioned(provisioning.getFinanceConditionId(),new SubsidyId(fc.getFactorySubsidy().getId().toString()),provisioning.getApplication(),
+        LocalDateTime.now()));
     return transaction;
   }
 

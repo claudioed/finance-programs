@@ -1,6 +1,7 @@
 package tech.claudioed.port.inputs.financecondition;
 
 import java.math.BigDecimal;
+import tech.claudioed.domain.shared.ids.SubsidyId;
 
 public class SubsidyInformation {
   private String name;

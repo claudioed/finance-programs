@@ -2,10 +2,10 @@ package tech.claudioed.domain.flat.specification.validation;
 
 import tech.claudioed.domain.flat.Flat;
 import tech.claudioed.domain.shared.MarketSegment;
-import tech.claudioed.port.inputs.finance.CustomerId;
-import tech.claudioed.port.inputs.finance.DealerId;
-import tech.claudioed.port.inputs.finance.ProductFamilyId;
-import tech.claudioed.port.inputs.finance.ProductId;
+import tech.claudioed.domain.shared.ids.CustomerId;
+import tech.claudioed.domain.shared.ids.DealerId;
+import tech.claudioed.domain.shared.ids.ProductFamilyId;
+import tech.claudioed.domain.shared.ids.ProductId;
 
 public class DealersFlatValidationContextBuilder {
 

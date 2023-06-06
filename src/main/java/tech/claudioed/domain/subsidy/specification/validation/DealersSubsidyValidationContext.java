@@ -14,11 +14,11 @@ import tech.claudioed.domain.subsidy.specification.DealerAllowedToUseSubsidy;
 import tech.claudioed.domain.subsidy.specification.MarketSegmentAllowedToUseSubsidy;
 import tech.claudioed.domain.subsidy.specification.ProductAllowedToUseSubsidy;
 import tech.claudioed.domain.subsidy.specification.ProductFamilyAllowedToUseSubsidy;
-import tech.claudioed.port.inputs.finance.CultureId;
-import tech.claudioed.port.inputs.finance.CustomerId;
-import tech.claudioed.port.inputs.finance.DealerId;
-import tech.claudioed.port.inputs.finance.ProductFamilyId;
-import tech.claudioed.port.inputs.finance.ProductId;
+import tech.claudioed.domain.shared.ids.CultureId;
+import tech.claudioed.domain.shared.ids.CustomerId;
+import tech.claudioed.domain.shared.ids.DealerId;
+import tech.claudioed.domain.shared.ids.ProductFamilyId;
+import tech.claudioed.domain.shared.ids.ProductId;
 
 public class DealersSubsidyValidationContext {
 
@@ -56,10 +56,11 @@ public class DealersSubsidyValidationContext {
   }
 
   public boolean isSatisfied() {
+    var mandatory = this.dealerAllowedToUseSubsidy.isSatisfiedBy(this.subsidy);
     var products = this.productFamilyAllowedToUseSubsidy.or(this.productAllowedToUseSubsidy).isSatisfiedBy(this.subsidy);
-    var actors = this.dealerAllowedToUseSubsidy.and(this.customerAllowedToUseSubsidy)
-        .and(this.cultureAllowedToUseSubsidy).and(this.marketSegmentAllowedToUseSubsidy).isSatisfiedBy(this.subsidy);
-    return products && actors;
+    var actors = this.dealerAllowedToUseSubsidy.or(this.customerAllowedToUseSubsidy)
+        .or(this.cultureAllowedToUseSubsidy).or(this.marketSegmentAllowedToUseSubsidy).isSatisfiedBy(this.subsidy);
+    return mandatory && products && actors;
   }
 
   public int points(){

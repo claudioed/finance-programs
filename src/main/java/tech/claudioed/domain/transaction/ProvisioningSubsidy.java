@@ -11,6 +11,11 @@ public class ProvisioningSubsidy {
   public ProvisioningSubsidy() {
   }
 
+  public ProvisioningSubsidy(CreditApplication application, FinanceConditionId financeConditionId) {
+    this.application = application;
+    this.financeConditionId = financeConditionId;
+  }
+
   public CreditApplication getApplication() {
     return application;
   }

@@ -18,4 +18,5 @@ public class CreditApplicationData {
   public Amount getAmount() {
     return amount;
   }
+
 }

@@ -16,7 +16,7 @@ import tech.claudioed.port.inputs.financecondition.NewFinanceCondition;
 import tech.claudioed.port.outputs.financecondition.FinanceConditionData;
 
 @Path("/finance-conditions")
-@Tag(name = "Finance conditions BO", description = "Finance conditions for back office operations")
+@Tag(name = "Finance conditions for Back-office", description = "Finance conditions for back office operations")
 public class FinanceConditionController {
 
   private final FinanceConditionService financeConditionService;

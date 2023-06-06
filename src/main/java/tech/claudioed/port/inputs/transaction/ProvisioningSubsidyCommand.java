@@ -7,6 +7,10 @@ public class ProvisioningSubsidyCommand {
   private CreditApplicationData application;
 
   private FinanceConditionId financeCondition;
+
+  public ProvisioningSubsidyCommand() {
+  }
+
   public CreditApplicationData getApplication() {
     return application;
   }

@@ -1,6 +1,7 @@
 package tech.claudioed.port.inputs.financecondition;
 
 import java.math.BigDecimal;
+import tech.claudioed.domain.shared.ids.FlatId;
 
 public class FlatInformation {
   private String name;

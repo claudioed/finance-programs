@@ -6,10 +6,10 @@ import tech.claudioed.domain.subsidy.specification.CustomerAllowedToUseSubsidy;
 import tech.claudioed.domain.subsidy.specification.DealerAllowedToUseSubsidy;
 import tech.claudioed.domain.subsidy.specification.ProductAllowedToUseSubsidy;
 import tech.claudioed.domain.subsidy.specification.ProductFamilyAllowedToUseSubsidy;
-import tech.claudioed.port.inputs.finance.CustomerId;
-import tech.claudioed.port.inputs.finance.DealerId;
-import tech.claudioed.port.inputs.finance.ProductFamilyId;
-import tech.claudioed.port.inputs.finance.ProductId;
+import tech.claudioed.domain.shared.ids.CustomerId;
+import tech.claudioed.domain.shared.ids.DealerId;
+import tech.claudioed.domain.shared.ids.ProductFamilyId;
+import tech.claudioed.domain.shared.ids.ProductId;
 
 public class DealerSubsidyValidationContext extends AbstractSpecification<Subsidy> {
 

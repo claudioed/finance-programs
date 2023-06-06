@@ -1,7 +1,6 @@
 package tech.claudioed.port.outputs.subsidy;
 
 import java.math.BigDecimal;
-import tech.claudioed.domain.subsidy.SubsidyType;
 
 public class SubsidyData {
 
@@ -10,8 +9,6 @@ public class SubsidyData {
   private String name;
 
   private BigDecimal rate;
-
-  private String subsidyType;
 
   private String maxLoanTime;
 
@@ -22,7 +19,6 @@ public class SubsidyData {
     this.id = id;
     this.name = name;
     this.rate = rate;
-    this.subsidyType = subsidyType;
     this.maxLoanTime = maxLoanTime;
   }
 
@@ -36,10 +32,6 @@ public class SubsidyData {
 
   public BigDecimal getRate() {
     return rate;
-  }
-
-  public String getSubsidyType() {
-    return subsidyType;
   }
 
   public String getMaxLoanTime() {

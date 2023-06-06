@@ -2,6 +2,7 @@ package tech.claudioed.domain.financecondition;
 
 import io.hypersistence.utils.hibernate.type.money.MonetaryAmountType;
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.UUID;
 import javax.money.MonetaryAmount;
 import javax.persistence.AttributeOverride;
@@ -18,6 +19,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.Columns;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.TypeDef;
+import tech.claudioed.domain.analysis.CreditApplicationId;
 import tech.claudioed.domain.flat.Flat;
 import tech.claudioed.domain.shared.Amount;
 import tech.claudioed.domain.shared.Duration;
@@ -26,6 +28,7 @@ import tech.claudioed.domain.shared.Interval;
 import tech.claudioed.domain.shared.MarketSegment;
 import tech.claudioed.domain.shared.Targets;
 import tech.claudioed.domain.subsidy.Subsidy;
+import tech.claudioed.domain.transaction.events.SubsidyProvisioned;
 
 @Entity
 @Table(name = "finance_condition")
@@ -92,6 +95,9 @@ public class FinanceCondition {
   })
   private Interval contractingLimit;
 
+  @Embedded
+  private FinanceConditionProvisioned provisioning;
+
   public FinanceCondition(){}
 
   FinanceCondition(String name, Duration maxTimeLoan,
@@ -109,6 +115,10 @@ public class FinanceCondition {
     this.segment = segment;
     this.financingLineId = financingLineId;
     this.contractingLimit = contractingLimit;
+  }
+
+  public void handleProvisioning(SubsidyProvisioned provisioned){
+    this.provisioning = new FinanceConditionProvisioned(LocalDateTime.now(),new CreditApplicationId(provisioned.application().getId().getId()));
   }
 
   public UUID getId() {
@@ -189,6 +199,10 @@ public class FinanceCondition {
 
   public Interval getContractingLimit() {
     return contractingLimit;
+  }
+
+  public FinanceConditionProvisioned getProvisioning() {
+    return provisioning;
   }
 
 }

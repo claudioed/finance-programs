@@ -4,7 +4,7 @@ import java.util.Objects;
 import tech.claudioed.domain.subsidy.Subsidy;
 import tech.claudioed.domain.shared.helper.Constants;
 import tech.claudioed.domain.shared.specification.AbstractSpecification;
-import tech.claudioed.port.inputs.finance.ProductFamilyId;
+import tech.claudioed.domain.shared.ids.ProductFamilyId;
 
 public class ProductFamilyAllowedToUseSubsidy extends AbstractSpecification<Subsidy> {
 

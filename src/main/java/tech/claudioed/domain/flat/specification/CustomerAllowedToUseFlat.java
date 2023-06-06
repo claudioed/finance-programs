@@ -4,7 +4,7 @@ import java.util.Objects;
 import tech.claudioed.domain.flat.Flat;
 import tech.claudioed.domain.shared.helper.Constants;
 import tech.claudioed.domain.shared.specification.AbstractSpecification;
-import tech.claudioed.port.inputs.finance.CustomerId;
+import tech.claudioed.domain.shared.ids.CustomerId;
 
 public class CustomerAllowedToUseFlat extends AbstractSpecification<Flat> {
 

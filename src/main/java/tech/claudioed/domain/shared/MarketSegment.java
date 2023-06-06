@@ -3,7 +3,6 @@ package tech.claudioed.domain.shared;
 public enum MarketSegment {
 
   AGRICULTURE,
-  CF,
-  FORESTRY
+  CONSTRUCTION_AND_FORESTRY,
 
 }
